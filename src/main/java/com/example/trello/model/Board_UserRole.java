@@ -25,7 +25,11 @@ public class Board_UserRole implements Serializable {
     private Board board;
 
     @ManyToOne
-    @JoinColumn(name = "user_role_id", referencedColumnName = "id")
-    private UserRole userRole;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Role role;
 
 }

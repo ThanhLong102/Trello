@@ -24,8 +24,8 @@ public class Comment implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_role_id", referencedColumnName = "id")
-    private UserRole userRole;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "card_id", referencedColumnName = "id")

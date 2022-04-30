@@ -2,9 +2,11 @@ package com.example.trello.repositories;
 
 import com.example.trello.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Repository
 public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findByUserName(String userName);
 
@@ -13,8 +15,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     User findOneByEmail(String username);
 
     User findOneById(Long contactId);
-
-    Optional<User> findByPhoneNumber(String phoneNumber);
 
     User findOneByPhoneNumber(String phoneNumber);
 
