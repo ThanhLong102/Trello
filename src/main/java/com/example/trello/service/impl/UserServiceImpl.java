@@ -88,17 +88,6 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean activeFirstTime(String userName, String password) {
-        User user;
-        if(userRepository.findByUserName(userName).isPresent()){
-            user=userRepository.findByUserName(userName).get();
-            userRepository.save(user);
-            return true;
-        }else{
-        return false;}
-    }
-
-    @Override
     public boolean detective(Long userId) {
         User user;
         if(userRepository.findById(userId).isPresent()){
