@@ -1,37 +1,62 @@
 package com.example.trello.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity
+@Entity(name = "Users")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user")
-public class User {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
+    Long id;
 
-    private String email;
+    @Column(name = "name")
+    String name;
 
-    private String userName;
+    @Column(name = "email",unique=true)
+    String email;
 
-    private String password;
+    @Column(name = "user_name",unique=true)
+    String userName;
 
-    private String firstName;
+    @Column(name = "password")
+    String password;
 
-    private String lastName;
+    @Column(name = "phone_number",unique=true)
+    String phoneNumber;
 
-    private Boolean isEnabled;
+    @Column(name = "avatar")
+    String avatarName;
 
-    @OneToMany(fetch = FetchType.LAZY,targetEntity = UserRole.class,cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id")
-    private List<UserRole> userRoleList;
+    @Column(name = "gender")
+    String gender;
 
+    @Column(name = "birth_day")
+    Date birthday;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "permission",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    @Column(name = "activate")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean isActive;
 }

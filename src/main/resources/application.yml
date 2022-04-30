@@ -1,0 +1,34 @@
+server:
+  port: 9090
+  multipart:
+    enabled: true
+    max-file-size: 25MB #25M
+    max-request-size: 25MB
+
+logging:
+  level:
+    ROOT: DEBUG
+    com.example.trello: DEBUG
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    username: thanhlonghoangdao1101@gmail.com
+    password: kqstzinevehphcfd
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+application:
+  security:
+    jwt:
+      secretKey: de6aaeabadeccc598160172044da9c566242ae3b
+      tokenValidityMilliseconds: 86400000
+      rememberMeTokenValiditySeconds: 25920000000
+
+
+

@@ -5,16 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user_role")
-public class UserRole {
+public class UserRole implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
     @ManyToOne
@@ -24,12 +27,4 @@ public class UserRole {
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
-
-    @OneToMany(fetch = FetchType.LAZY,targetEntity = Comment.class,cascade = CascadeType.ALL)
-    @JoinColumn(name="user_role_id")
-    private List<Comment> commentList;
-
-    @OneToMany(fetch = FetchType.LAZY,targetEntity = Board_UserRole.class,cascade = CascadeType.ALL)
-    @JoinColumn(name="user_role_id")
-    private List<Board_UserRole> boardUserRoleList;
 }

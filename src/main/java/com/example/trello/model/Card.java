@@ -5,25 +5,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "card")
-public class Card {
+public class Card implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
     private String title;
 
     private String description;
-
-    @OneToMany(fetch = FetchType.LAZY,targetEntity = Comment.class,cascade = CascadeType.ALL)
-    @JoinColumn(name="card_id")
-    private List<Comment> commentList;
 
     @ManyToOne
     @JoinColumn(name = "board_id", referencedColumnName = "id")
