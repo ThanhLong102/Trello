@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = Constants.Api.Path.USER+"/cards")
-@Api(tags = "User")
+@Api(tags = "Card")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class CardController {
 

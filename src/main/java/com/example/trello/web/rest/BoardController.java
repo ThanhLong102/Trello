@@ -11,7 +11,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = Constants.Api.Path.USER+"/boards")
-@Api(tags = "User")
+@Api(tags = "Board")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class BoardController {
 

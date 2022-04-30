@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = Constants.Api.Path.USER+"/comments")
-@Api(tags = "User")
+@Api(tags = "Comment")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class CommentController {
 
