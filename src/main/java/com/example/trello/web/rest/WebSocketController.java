@@ -1,29 +1,31 @@
-//package com.example.trello.web.rest;
-//
-//import com.itsol.recruit.dto.Hello;
-//import com.itsol.recruit.dto.User;
-//import com.itsol.recruit.entity.Notifications;
-//import com.itsol.recruit.service.NotificationsService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.messaging.handler.annotation.MessageMapping;
-//import org.springframework.messaging.handler.annotation.SendTo;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//@RestController
-//public class WebSocketController {
-//    @Autowired
-//    private NotificationsService notificationsService;
-//
-//    @MessageMapping("/hello")
-//    @SendTo("/topic/hi")
-//    public Hello greeting(User user) throws Exception {
-//        return new Hello("Hi, " + user.getName() + "!");
-//    }
-//
-//    @MessageMapping("/job-register")
-//    @SendTo("/topic/apply")
-//    public Notifications applyOnJob(Notifications notifications) throws Exception {
-//        return notificationsService.add(notifications);
-//    }
-//
-//}
+package com.example.trello.web.rest;
+
+import com.example.trello.dto.CommentDTO;
+import com.example.trello.service.CommentService;
+import io.swagger.annotations.Api;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@Api(tags = "chat")
+public class WebSocketController {
+    private final CommentService commentService;
+
+    public WebSocketController(CommentService commentService) {
+        this.commentService = commentService;
+    }
+
+    @MessageMapping("/add-comment")
+    @SendTo("/topic/add-comment")
+    public CommentDTO saveComment(CommentDTO commentDTO){
+        return commentService.save(commentDTO);
+    }
+
+    @MessageMapping("/delete-comment")
+    @SendTo("/topic/delete-comment")
+    public void delete(CommentDTO commentDTO){
+        commentService.delete(commentDTO.getId());
+    }
+
+}
