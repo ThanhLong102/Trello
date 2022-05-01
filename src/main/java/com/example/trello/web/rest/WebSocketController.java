@@ -16,13 +16,13 @@ public class WebSocketController {
         this.commentService = commentService;
     }
 
-    @MessageMapping("/add-comment")
-    @SendTo("/topic/add-comment")
+    @MessageMapping("/chat.sendComment")
+    @SendTo("/topic/send-comment")
     public CommentDTO saveComment(CommentDTO commentDTO){
         return commentService.save(commentDTO);
     }
 
-    @MessageMapping("/delete-comment")
+    @MessageMapping("/chat.deleteComment")
     @SendTo("/topic/delete-comment")
     public void delete(CommentDTO commentDTO){
         commentService.delete(commentDTO.getId());

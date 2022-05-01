@@ -3,11 +3,10 @@ package com.example.trello.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 
 @Entity
 @Data
@@ -31,8 +30,9 @@ public class Comment implements Serializable {
     @JoinColumn(name = "card_id", referencedColumnName = "id")
     private Card card;
 
-    @CreationTimestamp
-    private Date date;
+    private Instant CreatedDate;
+
+    private Instant updatedDate;
 
     private String content;
 }

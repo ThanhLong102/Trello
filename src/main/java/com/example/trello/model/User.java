@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -46,7 +47,7 @@ public class User implements Serializable {
     String gender;
 
     @Column(name = "birth_day")
-    Date birthday;
+    Instant birthday;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

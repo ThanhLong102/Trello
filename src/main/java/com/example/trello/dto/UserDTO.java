@@ -2,7 +2,7 @@ package com.example.trello.dto;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.Instant;
 
 @Data
 public class UserDTO {
@@ -23,7 +23,7 @@ public class UserDTO {
 
     String newPassword;
 
-    Date birthDay;
+    Instant birthDay;
 
     String otp;
 }

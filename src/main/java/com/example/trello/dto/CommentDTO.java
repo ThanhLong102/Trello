@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.Instant;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +17,9 @@ public class CommentDTO {
 
     private Long cardID;
 
-    private Date date;
+    private Instant createdDate;
+
+    private Instant updatedDate;
 
     private String content;
 }
