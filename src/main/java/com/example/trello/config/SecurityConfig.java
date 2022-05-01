@@ -1,12 +1,12 @@
 package com.example.trello.config;
 
-import com.example.trello.core.Constants;
 import com.example.trello.security.jwt.JWTConfigurer;
 import com.example.trello.security.jwt.TokenProvider;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,19 +16,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
+import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 @Configuration
 @EnableWebSecurity
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Import(SecurityProblemSupport.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     CorsFilter corsFilter;
 
     TokenProvider tokenProvider;
 
-    public SecurityConfig(CorsFilter corsFilter, TokenProvider tokenProvider) {
+    private final SecurityProblemSupport problemSupport;
+
+    public SecurityConfig(CorsFilter corsFilter, TokenProvider tokenProvider, SecurityProblemSupport problemSupport) {
         this.corsFilter = corsFilter;
         this.tokenProvider = tokenProvider;
+        this.problemSupport = problemSupport;
     }
 
     @Bean
@@ -47,15 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/swagger-resources/**", "/v2/api-docs").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-//                .antMatchers("/api/authenticate").permitAll()
-//                .antMatchers(Constants.Api.Path.AUTH+ "/**").permitAll()
-                .antMatchers("/api/logout").permitAll()
-                .antMatchers("/api/register").permitAll()
-                .antMatchers("/api/admin/**").hasAnyRole(Constants.Role.ADMIN)
-//                .antMatchers("/api/je/**").hasAnyRole(Constants.Role.JE, Constants.Role.ADMIN)
-                .antMatchers("/api/user/**").permitAll()//.hasAnyRole(Constants.Role.ADMIN)//,Constants.Role.USERConstants.Role.JE,
-                .antMatchers("/api/public/**").permitAll()
-                .antMatchers("/api/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/**").authenticated()
                 .and()
                 .httpBasic()
                 .and()
@@ -64,6 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .accessDeniedPage("/403");
+        // @formatter:on
     }
 
     private JWTConfigurer securityConfigurerAdapter() {
