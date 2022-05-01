@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,6 +40,15 @@ public class BoardURServiceImpl implements BoardURService {
     public Board_UserRoleDTO findOne(Long id) {
         log.debug("Request to get board_ur : {}", id);
         return board_userRoleMapper.toDto(board_userRoleRepository.findOneById(id));
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Board_UserRoleDTO> findAllBoardByUserNameAndRole(Board_UserRoleDTO board_userRoleDTO) {
+        log.debug("Request to get board_ur : {}", board_userRoleDTO);
+        Board_UserRole board_userRole = board_userRoleMapper.toEntity(board_userRoleDTO);
+        return board_userRoleMapper.toDto(board_userRoleRepository.findByUserAndRole(board_userRole.getUser()
+                ,board_userRole.getRole()));
     }
 
     @Override

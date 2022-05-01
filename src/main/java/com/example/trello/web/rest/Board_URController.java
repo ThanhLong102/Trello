@@ -8,9 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequestMapping(value = Constants.Api.Path.USER+"/boarURs")
+@RequestMapping(value = Constants.Api.Path.USER+"/boardURs")
 @Api(tags = "BoardUR")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class Board_URController {
@@ -33,6 +34,11 @@ public class Board_URController {
     @GetMapping("/id={id}")
     public ResponseEntity<Board_UserRoleDTO> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(boardService.findOne(id));
+    }
+
+    @PostMapping("/boards")
+    public ResponseEntity<List<Board_UserRoleDTO>> findAllBoardByUserNameAndRole(@Valid @RequestBody Board_UserRoleDTO board_userRoleDTO) {
+        return ResponseEntity.ok().body(boardService.findAllBoardByUserNameAndRole(board_userRoleDTO));
     }
 
     @DeleteMapping("/id={id}")
