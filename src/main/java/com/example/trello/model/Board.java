@@ -1,5 +1,6 @@
 package com.example.trello.model;
 
+import com.example.trello.model.enumeration.ViewPermission;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +23,13 @@ public class Board implements Serializable {
 
     private String title;
 
-    private String description;
+    private String background;
+
+    @ManyToOne
+    @JoinColumn(name = "workspace_id", referencedColumnName = "id")
+    private Workspace workspace;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "view_permission")
+    private ViewPermission viewPermission;
 }

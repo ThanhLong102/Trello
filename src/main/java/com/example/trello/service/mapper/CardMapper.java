@@ -2,7 +2,7 @@ package com.example.trello.service.mapper;
 
 import com.example.trello.dto.CardDTO;
 import com.example.trello.model.Card;
-import com.example.trello.repositories.BoardRepository;
+import com.example.trello.repositories.ListRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 @Service
 public class CardMapper implements EntityMapper<CardDTO, Card>{
 
-    private final BoardRepository boardRepository;
+    private final ListRepository listRepository;
 
-    public CardMapper(BoardRepository boardRepository) {
-        this.boardRepository = boardRepository;
+    public CardMapper(ListRepository listRepository) {
+        this.listRepository = listRepository;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class CardMapper implements EntityMapper<CardDTO, Card>{
 
         Card entity = new Card();
         BeanUtils.copyProperties(dto, entity);
-        entity.setBoard(boardRepository.findOneById(dto.getBoardId()));
+        entity.setList(listRepository.findOneById(dto.getListId()));
 
         return entity;
     }
@@ -39,7 +39,7 @@ public class CardMapper implements EntityMapper<CardDTO, Card>{
 
         CardDTO dto = new CardDTO();
         BeanUtils.copyProperties(entity, dto);
-        dto.setBoardId(entity.getBoard().getId());
+        dto.setListId(entity.getList().getId());
 
         return dto;
     }

@@ -11,7 +11,7 @@ public interface CardService {
     @Transactional(readOnly = true)
     CardDTO findOne(Long id);
 
-    List<CardDTO> findAllByBoard(Long id);
+    List<CardDTO> findAllByList(Long id);
 
     void delete(Long id);
 }

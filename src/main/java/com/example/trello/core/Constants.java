@@ -13,6 +13,7 @@ public final class Constants {
         public static final String JE = "ROLE_JE";
         public static final String USER = "ROLE_USER";
     }
+
     public static final class OTP{
         public static final Long EXPIRED_TIME = 5 * 60 * 1000L;
     }

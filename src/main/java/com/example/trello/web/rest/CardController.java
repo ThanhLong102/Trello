@@ -38,8 +38,8 @@ public class CardController {
     }
 
     @GetMapping("/board={id}")
-    public ResponseEntity<List<CardDTO>> getByBoardId(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(cardService.findAllByBoard(id));
+    public ResponseEntity<List<CardDTO>> getByListId(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(cardService.findAllByList(id));
     }
 
     @DeleteMapping("/id={id}")

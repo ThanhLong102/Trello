@@ -7,13 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CardDTO {
+public class WorkspaceDTO {
     private Long id;
 
-    private String title;
+    private String type;
 
     private String description;
-
-    private Long ListId;
-
 }

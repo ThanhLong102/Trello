@@ -2,6 +2,7 @@ package com.example.trello.service.mapper;
 
 import com.example.trello.dto.BoardDTO;
 import com.example.trello.model.Board;
+import com.example.trello.repositories.WorkspaceRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class BoardMapper implements EntityMapper<BoardDTO, Board>{
+
+    private final WorkspaceRepository workspaceRepository;
+
+    public BoardMapper(WorkspaceRepository workspaceRepository) {
+        this.workspaceRepository = workspaceRepository;
+    }
+
     @Override
     public Board toEntity(BoardDTO dto) {
         if (dto == null) {
@@ -17,6 +25,7 @@ public class BoardMapper implements EntityMapper<BoardDTO, Board>{
         }
         Board entity = new Board();
         BeanUtils.copyProperties(dto, entity);
+        entity.setWorkspace(workspaceRepository.findOneById(dto.getWorkspaceId()));
         return entity;
     }
 
@@ -28,6 +37,7 @@ public class BoardMapper implements EntityMapper<BoardDTO, Board>{
 
         BoardDTO dto = new BoardDTO();
         BeanUtils.copyProperties(entity, dto);
+        dto.setWorkspaceId(entity.getWorkspace().getId());
         return dto;
     }
 

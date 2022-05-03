@@ -1,18 +1,17 @@
 package com.example.trello.service;
 
-import com.example.trello.dto.BoardDTO;
+import com.example.trello.dto.ListDTO;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface BoardService {
-
-    BoardDTO save(BoardDTO boardDTO);
+public interface ListService {
+    ListDTO save(ListDTO listDTO);
 
     @Transactional(readOnly = true)
-    BoardDTO findOne(Long id);
+    ListDTO findOne(Long id);
 
-    List<BoardDTO> findAllByWorkspace(Long id);
+    List<ListDTO> findAllByBoard(Long id);
 
     void delete(Long id);
 }

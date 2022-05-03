@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = Constants.Api.Path.USER+"/boards")
@@ -34,6 +35,11 @@ public class BoardController {
     @GetMapping("/id={id}")
     public ResponseEntity<BoardDTO> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(boardService.findOne(id));
+    }
+
+    @GetMapping("/workspace={id}")
+    public ResponseEntity<List<BoardDTO>> getByWorkspacedId(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(boardService.findAllByWorkspace(id));
     }
 
     @DeleteMapping("/id={id}")

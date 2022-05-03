@@ -11,20 +11,15 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "card")
-public class Card implements Serializable {
+@Table(name = "workspace")
+public class Workspace implements Serializable {
     private static final long serialVersionUID = 1L;
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Card_SEQ")
-    @SequenceGenerator(name = "Card_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Workspace_SEQ")
+    @SequenceGenerator(name = "Workspace_SEQ")
     private Long id;
 
-    private String title;
+    private String type;
 
     private String description;
-
-    @ManyToOne
-    @JoinColumn(name = "list_id", referencedColumnName = "id")
-    private List list;
 }

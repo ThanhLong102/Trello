@@ -2,8 +2,8 @@ package com.example.trello.service.impl;
 
 import com.example.trello.dto.CardDTO;
 import com.example.trello.model.Card;
-import com.example.trello.repositories.BoardRepository;
 import com.example.trello.repositories.CardRepository;
+import com.example.trello.repositories.ListRepository;
 import com.example.trello.service.CardService;
 import com.example.trello.service.mapper.CardMapper;
 import org.slf4j.Logger;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -21,19 +20,19 @@ public class CardServiceImpl implements CardService {
 
     private final CardRepository cardRepository;
 
-    private final BoardRepository boardRepository;
+    private final ListRepository listRepository;
 
     private final CardMapper cardMapper;
 
-    public CardServiceImpl(CardRepository cardRepository, BoardRepository boardRepository, CardMapper cardMapper) {
+    public CardServiceImpl(CardRepository cardRepository, ListRepository listRepository, CardMapper cardMapper) {
         this.cardRepository = cardRepository;
-        this.boardRepository = boardRepository;
+        this.listRepository = listRepository;
         this.cardMapper = cardMapper;
     }
 
 
     @Override
-    public CardDTO save(CardDTO cardDTO){
+    public CardDTO save(CardDTO cardDTO) {
         log.debug("Request to save card : {}", cardDTO);
         Card card = cardMapper.toEntity(cardDTO);
         card = cardRepository.save(card);
@@ -48,9 +47,9 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<CardDTO> findAllByBoard(Long id) {
+    public List<CardDTO> findAllByList(Long id) {
         log.debug("Request to get card : {}", id);
-        return cardMapper.toDto(cardRepository.findByBoard(boardRepository.findOneById(id)));
+        return cardMapper.toDto(cardRepository.findByList(listRepository.findOneById(id)));
     }
 
     @Override
