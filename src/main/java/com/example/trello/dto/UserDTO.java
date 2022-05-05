@@ -21,8 +21,6 @@ public class UserDTO {
 
     String gender;
 
-    String newPassword;
-
     Instant birthDay;
 
     String otp;

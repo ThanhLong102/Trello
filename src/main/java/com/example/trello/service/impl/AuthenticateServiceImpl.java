@@ -51,8 +51,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
     @Override
     public MessageDto signup(UserDTO dto) {
         MessageDto messageDto = new MessageDto();
-        String message = "";
-        Boolean check = false;
+        String message;
         if (userRepository.findOneByEmail(dto.getEmail()) == null && userRepository.findOneByUserName(dto.getUserName()) == null
                 && userRepository.findOneByPhoneNumber(dto.getPhoneNumber()) == null) {
             try {
@@ -67,20 +66,19 @@ public class AuthenticateServiceImpl implements AuthenticateService {
                 String link = emailService.buildActiveEmail(user.getName(), otp.getCode(), user.getId());
                 emailService.send(user.getEmail(), link);
                 message = "Đăng kí thành công, vui lòng active tài khoản";
-                check = true;
-                messageDto.setObj(check);
+                messageDto.setObj(true);
                 messageDto.setMessage(message);
                 return messageDto;
             } catch (Exception e) {
                 log.error("cannot save to database");
                 message = "Có lỗi trong quá trình";
-                messageDto.setObj(check);
+                messageDto.setObj(false);
                 messageDto.setMessage(message);
                 return messageDto;
             }
         } else {
             message = "Tài khoản đã tồn tại email hoặc số điện thoại, tên đăng nhập";
-            messageDto.setObj(check);
+            messageDto.setObj(false);
             messageDto.setMessage(message);
             return messageDto;
         }
@@ -89,7 +87,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
     @Override
     public MessageDto changePassword(UserDTO dto) {
         String message = "";
-        Boolean check = false;
+        boolean check = false;
         try {
             User user = userRepository.findOneByEmail(dto.getEmail());
             if (user != null) {
@@ -138,6 +136,5 @@ public class AuthenticateServiceImpl implements AuthenticateService {
         }
         return "Kích hoạt tài khoản thất bại";
     }
-
 
 }

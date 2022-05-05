@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class MessageDto {
     String message;
-    Object obj;
+    Boolean obj;
 }
