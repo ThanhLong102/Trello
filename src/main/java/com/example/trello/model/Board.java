@@ -25,10 +25,6 @@ public class Board implements Serializable {
 
     private String background;
 
-    @ManyToOne
-    @JoinColumn(name = "workspace_id", referencedColumnName = "id")
-    private Workspace workspace;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "view_permission")
     private ViewPermission viewPermission;

@@ -18,5 +18,4 @@ public class BoardDTO {
 
     private ViewPermission viewPermission;
 
-    private Long workspaceId;
 }

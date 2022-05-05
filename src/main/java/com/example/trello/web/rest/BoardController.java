@@ -37,11 +37,6 @@ public class BoardController {
         return ResponseEntity.ok().body(boardService.findOne(id));
     }
 
-    @GetMapping("/workspace={id}")
-    public ResponseEntity<List<BoardDTO>> getByWorkspacedId(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(boardService.findAllByWorkspace(id));
-    }
-
     @DeleteMapping("/id={id}")
     public void delete(@PathVariable("id") Long id) {
         boardService.delete(id);
