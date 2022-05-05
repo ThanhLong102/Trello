@@ -2,6 +2,7 @@ package com.example.trello.web.auth;
 
 import com.example.trello.core.Constants;
 import com.example.trello.dto.MessageDto;
+import com.example.trello.dto.OtpDTO;
 import com.example.trello.dto.UserDTO;
 import com.example.trello.security.jwt.JWTFilter;
 import com.example.trello.security.jwt.TokenProvider;
@@ -66,7 +67,7 @@ public class AuthenticateController {
     }
 
     @PostMapping(Constants.Api.Path.Account.RESET_PASSWORD_INIT)
-    public ResponseEntity<MessageDto> resetPasswordInit(@Valid @RequestBody UserDTO dto) {
+    public ResponseEntity<MessageDto> resetPasswordInit(@Valid @RequestBody OtpDTO dto) {
         return ResponseEntity.ok().body(otpService.sendOtp(dto));
     }
 

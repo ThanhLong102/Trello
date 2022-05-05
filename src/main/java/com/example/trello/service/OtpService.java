@@ -2,9 +2,9 @@ package com.example.trello.service;
 
 
 import com.example.trello.dto.MessageDto;
-import com.example.trello.dto.UserDTO;
+import com.example.trello.dto.OtpDTO;
 
 public interface OtpService {
-     MessageDto sendOtp(UserDTO userDTO);
 
+     MessageDto sendOtp(OtpDTO otpDTO);
 }

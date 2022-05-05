@@ -1,7 +1,7 @@
 package com.example.trello.service.impl;
 
 import com.example.trello.dto.MessageDto;
-import com.example.trello.dto.UserDTO;
+import com.example.trello.dto.OtpDTO;
 import com.example.trello.model.OTP;
 import com.example.trello.model.User;
 import com.example.trello.repositories.OtpRepository;
@@ -33,10 +33,10 @@ public class OtpServiceImpl implements OtpService {
     }
 
     @Override
-    public MessageDto sendOtp(UserDTO userDTO) {
+    public MessageDto sendOtp(OtpDTO otpDTO) {
         MessageDto messageDto = new MessageDto();
         try {
-            User user = userRepository.findOneByEmail(userDTO.getEmail());
+            User user = userRepository.findOneByEmail(otpDTO.getEmail());
             System.out.println(user);
             if (user == null) {
                 messageDto.setMessage("Không tìm thấy Email.");
