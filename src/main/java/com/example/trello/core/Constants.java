@@ -60,6 +60,7 @@ public final class Constants {
 
             public static class Auth {
                 public static final String LOGIN = "/login";
+                public static final String LOGIN_GOOGLE = "/login-google";
                 public static final String REFRESH_TOKEN = "/refresh-token";
                 public static final String CHECK_PHONE_NUMBER = "/check-phone-number";
                 public static final String OTP = "/otp";

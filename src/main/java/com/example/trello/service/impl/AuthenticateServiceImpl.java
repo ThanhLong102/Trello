@@ -94,7 +94,6 @@ public class AuthenticateServiceImpl implements AuthenticateService {
                 OTP dbOtp = otpRepository.findOneByUser(user);
                 if (dbOtp.isExpired()) {
                     message = "Mã otp đã hết hạn";
-
                 } else {
                     if (dbOtp.getCode().equals(dto.getOtp())) {
                         user.setPassword(passwordEncoder.encode(dto.getPassword()));

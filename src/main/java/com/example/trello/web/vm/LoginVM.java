@@ -30,5 +30,5 @@ public class LoginVM {
 
     @NotNull
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean rememberMe=true;
+    private Boolean rememberMe;
 }

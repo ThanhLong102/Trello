@@ -2,6 +2,9 @@ package com.example.trello.config;
 
 import com.example.trello.security.jwt.JWTConfigurer;
 import com.example.trello.security.jwt.TokenProvider;
+import com.example.trello.security.oauth.CustomOAuth2UserService;
+import com.example.trello.security.oauth.OAuth2LoginFailureHandler;
+import com.example.trello.security.oauth.OAuth2LoginSuccessHandler;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Bean;
@@ -24,16 +27,23 @@ import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 @Import(SecurityProblemSupport.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    CorsFilter corsFilter;
+    private final CorsFilter corsFilter;
 
-    TokenProvider tokenProvider;
+    private final TokenProvider tokenProvider;
 
-    private final SecurityProblemSupport problemSupport;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
-    public SecurityConfig(CorsFilter corsFilter, TokenProvider tokenProvider, SecurityProblemSupport problemSupport) {
+    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+
+    private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
+
+    public SecurityConfig(CorsFilter corsFilter, TokenProvider tokenProvider,
+                          CustomOAuth2UserService customOAuth2UserService, OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler, OAuth2LoginFailureHandler oAuth2LoginFailureHandler) {
         this.corsFilter = corsFilter;
         this.tokenProvider = tokenProvider;
-        this.problemSupport = problemSupport;
+        this.customOAuth2UserService = customOAuth2UserService;
+        this.oAuth2LoginSuccessHandler = oAuth2LoginSuccessHandler;
+        this.oAuth2LoginFailureHandler = oAuth2LoginFailureHandler;
     }
 
     @Bean
@@ -52,8 +62,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/swagger-resources/**", "/v2/api-docs").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers("/", "/login", "/oauth/**").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/**").authenticated()
+                .and()
+                .oauth2Login()
+                .loginPage("/login")
+                .userInfoEndpoint().userService(customOAuth2UserService)
+                .and()
+                .successHandler(oAuth2LoginSuccessHandler)
+                .failureHandler(oAuth2LoginFailureHandler)
                 .and()
                 .httpBasic()
                 .and()

@@ -11,6 +11,18 @@ logging:
     com.example.trello: DEBUG
 
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 41689729816-av3tl6knb8sf7dhpp6d41fdlhtqegf4n.apps.googleusercontent.com
+            clientSecret: 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
+            #              /oauth2/authorization/google
+            scope:
+              - email
+              - profile
+
   mail:
     host: smtp.gmail.com
     username: thanhlonghoangdao1101@gmail.com

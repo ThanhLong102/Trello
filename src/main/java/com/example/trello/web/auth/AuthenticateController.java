@@ -6,6 +6,7 @@ import com.example.trello.dto.OtpDTO;
 import com.example.trello.dto.UserDTO;
 import com.example.trello.security.jwt.JWTFilter;
 import com.example.trello.security.jwt.TokenProvider;
+import com.example.trello.security.oauth.OAuth2LoginSuccessHandler;
 import com.example.trello.service.AuthenticateService;
 import com.example.trello.service.OtpService;
 import com.example.trello.web.vm.LoginVM;
@@ -17,6 +18,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,12 +41,16 @@ public class AuthenticateController {
 
     private final OtpService otpService;
 
+    private final OAuth2AuthorizedClientService authorizedClientService;
+
     public AuthenticateController(
-            AuthenticateService authenticateService, AuthenticationManagerBuilder authenticationManagerBuilder, TokenProvider tokenProvider, OtpService otpService) {
+            AuthenticateService authenticateService, AuthenticationManagerBuilder authenticationManagerBuilder,
+            TokenProvider tokenProvider, OtpService otpService, OAuth2AuthorizedClientService authorizedClientService) {
         this.authenticateService = authenticateService;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.tokenProvider = tokenProvider;
         this.otpService = otpService;
+        this.authorizedClientService = authorizedClientService;
     }
 
     @PostMapping(Constants.Api.Path.Account.REGISTER)
@@ -72,7 +81,7 @@ public class AuthenticateController {
     }
 
     @PostMapping(Constants.Api.Path.Auth.LOGIN)
-    public ResponseEntity<?> authenticateAdmin(@Valid @RequestBody LoginVM loginVM) {
+    public ResponseEntity<?> authenticateLocal(@Valid @RequestBody LoginVM loginVM) {
 //		Tạo chuỗi authentication từ username và password (object LoginRequest
 //		- file này chỉ là 1 class bình thường, chứa 2 trường username và password)
         UsernamePasswordAuthenticationToken authenticationString = new UsernamePasswordAuthenticationToken(
@@ -82,6 +91,15 @@ public class AuthenticateController {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationString);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.createToken(authentication, loginVM.getRememberMe());
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, String.format("Bearer %s", jwt));
+        return new ResponseEntity<>(Collections.singletonMap("token", jwt), httpHeaders, HttpStatus.OK); //Trả về chuỗi jwt(authentication string)
+    }
+
+    @PostMapping(Constants.Api.Path.Auth.LOGIN_GOOGLE)
+    public ResponseEntity<?> authenticateGoogle(Boolean rememberMe) {
+        SecurityContextHolder.getContext().setAuthentication(OAuth2LoginSuccessHandler.authentication);
+        String jwt = tokenProvider.createToken(OAuth2LoginSuccessHandler.authentication, rememberMe);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, String.format("Bearer %s", jwt));
         return new ResponseEntity<>(Collections.singletonMap("token", jwt), httpHeaders, HttpStatus.OK); //Trả về chuỗi jwt(authentication string)

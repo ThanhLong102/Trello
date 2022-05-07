@@ -22,4 +22,8 @@ public interface UserService {
     MessageDto updateUser(User user);
 
     boolean detective(Long userId);
+
+    void createNewUserAfterOAuthLoginSuccess(String email, String name);
+
+    void updateNewUserAfterOAuthLoginSuccess(User user, String name);
 }

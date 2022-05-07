@@ -7,7 +7,6 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,8 +20,8 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "User_SEQ")
-    @SequenceGenerator(name = "User_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Users_SEQ")
+    @SequenceGenerator(name = "Users_SEQ")
     Long id;
 
     @Column(name = "name")

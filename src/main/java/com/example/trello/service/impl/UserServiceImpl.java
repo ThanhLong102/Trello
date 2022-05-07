@@ -1,16 +1,20 @@
 package com.example.trello.service.impl;
 
+import com.example.trello.core.Constants;
 import com.example.trello.dto.MessageDto;
+import com.example.trello.dto.UserDTO;
 import com.example.trello.model.Role;
 import com.example.trello.model.User;
 import com.example.trello.repositories.RoleRepository;
 import com.example.trello.repositories.UserRepository;
 import com.example.trello.service.UserService;
+import com.example.trello.service.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -21,10 +25,12 @@ public class UserServiceImpl implements UserService {
 
     public final RoleRepository roleRepository;
 
+    public final UserMapper userMapper;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -86,7 +92,6 @@ public class UserServiceImpl implements UserService {
         return message;
     }
 
-
     @Override
     public boolean detective(Long userId) {
         User user;
@@ -99,5 +104,24 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
+    }
+
+    @Override
+    public void createNewUserAfterOAuthLoginSuccess(String email, String name) {
+        Set<Role> roles = roleRepository.findByContent(Constants.Role.USER);
+        UserDTO dto = new UserDTO();
+        dto.setEmail(email);
+        dto.setUserName(email);
+        dto.setName(name);
+        User user = userMapper.toEntity(dto);
+        user.setActive(true);
+        user.setRoles(roles);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updateNewUserAfterOAuthLoginSuccess(User user, String name) {
+        user.setName(name);
+        userRepository.save(user);
     }
 }
