@@ -98,8 +98,12 @@ public class AuthenticateController {
 
     @PostMapping(Constants.Api.Path.Auth.LOGIN_GOOGLE)
     public ResponseEntity<?> authenticateGoogle(Boolean rememberMe) {
+        if(OAuth2LoginSuccessHandler.authentication == null){
+            return ResponseEntity.ok().body(new MessageDto("Vui lòng đăng nhập",false));
+        }
         SecurityContextHolder.getContext().setAuthentication(OAuth2LoginSuccessHandler.authentication);
         String jwt = tokenProvider.createToken(OAuth2LoginSuccessHandler.authentication, rememberMe);
+        OAuth2LoginSuccessHandler.authentication = null;
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, String.format("Bearer %s", jwt));
         return new ResponseEntity<>(Collections.singletonMap("token", jwt), httpHeaders, HttpStatus.OK); //Trả về chuỗi jwt(authentication string)
