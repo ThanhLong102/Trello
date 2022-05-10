@@ -2,8 +2,8 @@ server:
   port: 9090
   multipart:
     enabled: true
-    max-file-size: 25MB #25M
-    max-request-size: 25MB
+    max-file-size: 90MB #90M
+    max-request-size: 90MB
 
 logging:
   level:

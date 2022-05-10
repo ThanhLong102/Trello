@@ -1,8 +1,10 @@
 package com.example.trello.service.impl;
 
+import com.example.trello.config.StorageConfig;
 import com.example.trello.service.UploadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -22,9 +24,15 @@ import java.util.stream.Stream;
 @Service
 @Transactional
 public class UploadServiceImpl implements UploadService {
-    private final Path root = Paths.get("file");
+    private final Path root;
 
     private final Logger log = LoggerFactory.getLogger(UploadServiceImpl.class);
+
+    @Autowired
+    public UploadServiceImpl(StorageConfig properties)
+    {
+        this.root = Paths.get(properties.getLocation());
+    }
 
     @Override
     public void init() {

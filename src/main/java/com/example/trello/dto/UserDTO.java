@@ -24,5 +24,4 @@ public class UserDTO {
     Instant birthDay;
 
     String otp;
-
 }

@@ -23,7 +23,7 @@ public class UploadResource {
     }
 
     @PostMapping
-    public ResponseEntity<String> uploadFileLoanProduct(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         String message;
         try {
             uploadService.save(file);
