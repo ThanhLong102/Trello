@@ -18,10 +18,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,16 +37,13 @@ public class AuthenticateController {
 
     private final OtpService otpService;
 
-    private final OAuth2AuthorizedClientService authorizedClientService;
-
     public AuthenticateController(
             AuthenticateService authenticateService, AuthenticationManagerBuilder authenticationManagerBuilder,
-            TokenProvider tokenProvider, OtpService otpService, OAuth2AuthorizedClientService authorizedClientService) {
+            TokenProvider tokenProvider, OtpService otpService) {
         this.authenticateService = authenticateService;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.tokenProvider = tokenProvider;
         this.otpService = otpService;
-        this.authorizedClientService = authorizedClientService;
     }
 
     @PostMapping(Constants.Api.Path.Account.REGISTER)

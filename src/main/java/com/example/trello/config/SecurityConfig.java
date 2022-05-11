@@ -72,6 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .successHandler(oAuth2LoginSuccessHandler)
                 .failureHandler(oAuth2LoginFailureHandler)
+                .defaultSuccessUrl("https://www.google.com")
                 .and()
                 .httpBasic()
                 .and()
