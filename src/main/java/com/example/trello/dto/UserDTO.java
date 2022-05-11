@@ -1,5 +1,6 @@
 package com.example.trello.dto;
 
+import com.example.trello.CustomValidate.ContactNumberConstraint;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -23,6 +24,7 @@ public class UserDTO {
     @Min(value = 8, message = "Password phải từ 8 kí tự trở lên")
     String password;
 
+    @ContactNumberConstraint
     String phoneNumber;
 
     String avatarName;
