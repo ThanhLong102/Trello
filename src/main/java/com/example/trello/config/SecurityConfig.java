@@ -67,7 +67,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").authenticated()
                 .and()
                 .oauth2Login()
-                .loginPage("/login")
                 .userInfoEndpoint().userService(customOAuth2UserService)
                 .and()
                 .successHandler(oAuth2LoginSuccessHandler)

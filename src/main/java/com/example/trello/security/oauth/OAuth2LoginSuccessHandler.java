@@ -38,4 +38,5 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             userService.updateNewUserAfterOAuthLoginSuccess(user,name);
         }
     }
+
 }
