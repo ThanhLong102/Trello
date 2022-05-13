@@ -30,13 +30,15 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         String email = oAuth2User.getEmail();
         User user = userService.findByEmail(email);
         String name = oAuth2User.getName();
-        super.onAuthenticationSuccess(request, response, authentication);
         if(user == null){
             userService.createNewUserAfterOAuthLoginSuccess(email,name);
         }
         else {
             userService.updateNewUserAfterOAuthLoginSuccess(user,name);
         }
+        response.setContentType("text/html");
+        response.sendRedirect("http://localhost:3000");
+        super.onAuthenticationSuccess(request, response, authentication);
     }
 
 }
