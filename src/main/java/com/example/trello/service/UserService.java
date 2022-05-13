@@ -15,6 +15,8 @@ public interface UserService {
 
     User findByEmail(String email);
 
+    User findByToken(String Token);
+
     List<User> findUserByRole(String role);
 
     User save(User user);

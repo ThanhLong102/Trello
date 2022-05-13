@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
@@ -51,6 +52,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByEmail(String email) {
         return userRepository.findOneByEmail(email);
+    }
+
+    @Override
+    public User findByToken(String token) {
+        String[] chunks = token.split("\\.");
+        Base64.Decoder decoder = Base64.getUrlDecoder();
+        if(chunks.length <2){
+            return null;
+        }
+        String payload = new String(decoder.decode(chunks[1]));
+        String[] payloads = payload.split("\"");
+        User user = userRepository.findOneByUserName(payloads[3]);
+        return user;
     }
 
     @Override
