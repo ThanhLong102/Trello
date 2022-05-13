@@ -40,8 +40,8 @@ public class UserController {
         return ResponseEntity.ok().body(userService.findUserByUserName(username));
     }
 
-    @GetMapping(value = "/token={token}")
-    public ResponseEntity<User> findUserByToken(@PathVariable String token) {
+    @GetMapping(value = "/token")
+    public ResponseEntity<User> findUserByToken(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok().body(userService.findByToken(token));
     }
 
