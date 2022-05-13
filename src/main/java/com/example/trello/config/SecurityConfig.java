@@ -71,7 +71,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .successHandler(oAuth2LoginSuccessHandler)
                 .failureHandler(oAuth2LoginFailureHandler)
-                .defaultSuccessUrl("http://localhost:3000")
                 .and()
                 .httpBasic()
                 .and()

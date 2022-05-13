@@ -63,7 +63,13 @@ public class UserServiceImpl implements UserService {
         }
         String payload = new String(decoder.decode(chunks[1]));
         String[] payloads = payload.split("\"");
-        User user = userRepository.findOneByUserName(payloads[3]);
+        User user;
+        if(payloads[3].contains("@gmail.com")){
+            user = userRepository.findOneByEmail(payloads[3]);
+        }
+        else {
+            user = userRepository.findOneByUserName(payloads[3]);
+        }
         return user;
     }
 

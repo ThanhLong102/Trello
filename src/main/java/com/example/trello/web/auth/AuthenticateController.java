@@ -95,7 +95,7 @@ public class AuthenticateController {
             return ResponseEntity.ok().body(new MessageDto("Vui lòng đăng nhập",false));
         }
         SecurityContextHolder.getContext().setAuthentication(OAuth2LoginSuccessHandler.authentication);
-        String jwt = tokenProvider.createToken(OAuth2LoginSuccessHandler.authentication, rememberMe);
+        String jwt = tokenProvider.createTokenLoginGG(OAuth2LoginSuccessHandler.authentication, rememberMe);
         OAuth2LoginSuccessHandler.authentication = null;
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, String.format("Bearer %s", jwt));

@@ -1,5 +1,6 @@
 package com.example.trello.security.jwt;
 
+import com.example.trello.security.oauth.CustomOAuth2User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
@@ -50,6 +51,15 @@ public class TokenProvider  implements InitializingBean  {
         Date expiredTime = new Date((rememberMe ? tokenValidityInSecondsForRememberMe : tokenValidityInMilliseconds) + now);
 
         return Jwts.builder().setSubject(authentication.getName()).claim(AUTHORITIES_KEY, authorities)
+                .signWith(this.key, SignatureAlgorithm.HS256).setExpiration(expiredTime).compact();
+    }
+
+    public String createTokenLoginGG(Authentication authentication, boolean rememberMe) {
+        String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
+        long now = Calendar.getInstance().getTimeInMillis();
+        Date expiredTime = new Date((rememberMe ? tokenValidityInSecondsForRememberMe : tokenValidityInMilliseconds) + now);
+        CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
+        return Jwts.builder().setSubject(oauthUser.getEmail()).claim(AUTHORITIES_KEY, authorities)
                 .signWith(this.key, SignatureAlgorithm.HS256).setExpiration(expiredTime).compact();
     }
 
