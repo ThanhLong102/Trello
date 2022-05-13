@@ -4,8 +4,8 @@ import com.example.trello.CustomValidate.ContactNumberConstraint;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.Instant;
 
 @Data
@@ -21,7 +21,7 @@ public class UserDTO {
     String userName;
 
     @NotEmpty(message = "Thiếu password")
-    @Min(value = 8, message = "Password phải từ 8 kí tự trở lên")
+    @Size(min = 8, message = "Password phải từ 8 kí tự trở lên")
     String password;
 
     @ContactNumberConstraint
