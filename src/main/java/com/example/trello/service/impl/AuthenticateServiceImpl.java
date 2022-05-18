@@ -53,7 +53,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
         MessageDto messageDto = new MessageDto();
         String message;
         if (userRepository.findOneByEmail(dto.getEmail()) == null && userRepository.findOneByUserName(dto.getUserName()) == null
-                && userRepository.findOneByPhoneNumber(dto.getPhoneNumber()) == null) {
+                ) {
             try {
                 Set<Role> roles = roleRepository.findByContent(Constants.Role.USER);
                 User user = userMapper.toEntity(dto);

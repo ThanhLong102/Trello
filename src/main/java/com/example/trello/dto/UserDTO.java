@@ -31,7 +31,7 @@ public class UserDTO {
 
     String gender;
 
-    Instant birthDay;
+    Instant birthday;
 
     String otp;
 
