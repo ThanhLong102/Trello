@@ -52,6 +52,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public int countCommentByCard(Long id) {
+        log.debug("Request to get comment : {}", id);
+        return commentRepository.findByCard(cardRepository.findOneById(id)).size();
+    }
+
+    @Override
     public void delete(Long id) {
         log.debug("Request to delete comment : {}", id);
         commentRepository.deleteById(id);

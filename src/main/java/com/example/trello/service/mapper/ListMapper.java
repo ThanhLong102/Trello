@@ -3,6 +3,7 @@ package com.example.trello.service.mapper;
 import com.example.trello.dto.ListDTO;
 import com.example.trello.model.List;
 import com.example.trello.repositories.BoardRepository;
+import com.example.trello.service.CommentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 public class ListMapper implements EntityMapper<ListDTO , List>{
 
     private final BoardRepository boardRepository;
+
 
     public ListMapper(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;

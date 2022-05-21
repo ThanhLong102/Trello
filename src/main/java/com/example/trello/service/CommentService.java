@@ -13,5 +13,7 @@ public interface CommentService {
 
     List<CommentDTO> findAllByCard(Long id);
 
+    int countCommentByCard(Long id);
+
     void delete(Long id);
 }

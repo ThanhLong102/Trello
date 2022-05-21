@@ -3,6 +3,7 @@ package com.example.trello.service.mapper;
 import com.example.trello.dto.CardDTO;
 import com.example.trello.model.Card;
 import com.example.trello.repositories.ListRepository;
+import com.example.trello.service.CommentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,11 @@ public class CardMapper implements EntityMapper<CardDTO, Card>{
 
     private final ListRepository listRepository;
 
-    public CardMapper(ListRepository listRepository) {
+    private final CommentService commentService;
+
+    public CardMapper(ListRepository listRepository, CommentService commentService) {
         this.listRepository = listRepository;
+        this.commentService = commentService;
     }
 
     @Override
@@ -40,6 +44,7 @@ public class CardMapper implements EntityMapper<CardDTO, Card>{
         CardDTO dto = new CardDTO();
         BeanUtils.copyProperties(entity, dto);
         dto.setListId(entity.getList().getId());
+        dto.setCountComment(commentService.countCommentByCard(entity.getId()));
 
         return dto;
     }

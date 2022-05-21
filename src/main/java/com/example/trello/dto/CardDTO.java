@@ -21,4 +21,6 @@ public class CardDTO {
     @NotEmpty
     private Long ListId;
 
+    private Integer countComment;
+
 }
