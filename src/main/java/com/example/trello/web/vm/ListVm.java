@@ -1,6 +1,7 @@
 package com.example.trello.web.vm;
 
-import com.example.trello.model.Board;
+import com.example.trello.dto.CardDTO;
+import com.example.trello.dto.ListDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +11,8 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class BoardVm {
-    Board board;
+public class ListVm {
+    ListDTO listDTO;
 
-    List<ListVm> list;
+    List<CardDTO> cardDTOList;
 }
