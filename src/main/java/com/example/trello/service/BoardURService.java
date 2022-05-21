@@ -2,6 +2,7 @@ package com.example.trello.service;
 
 import com.example.trello.dto.Board_UserRoleDTO;
 import com.example.trello.model.Board;
+import com.example.trello.web.vm.BoardVm;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -16,5 +17,5 @@ public interface BoardURService {
 
     void delete(Long id);
 
-    List<Board> findAllBoardByToken(String token);
+    List<BoardVm> findAllBoardByToken(String token);
 }
