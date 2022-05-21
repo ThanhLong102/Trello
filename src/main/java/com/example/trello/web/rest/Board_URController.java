@@ -2,6 +2,7 @@ package com.example.trello.web.rest;
 
 import com.example.trello.core.Constants;
 import com.example.trello.dto.Board_UserRoleDTO;
+import com.example.trello.model.Board;
 import com.example.trello.service.BoardURService;
 import io.swagger.annotations.Api;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,11 @@ public class Board_URController {
     @PostMapping("/boards")
     public ResponseEntity<List<Board_UserRoleDTO>> findAllBoardByUserNameAndRole(@Valid @RequestBody Board_UserRoleDTO board_userRoleDTO) {
         return ResponseEntity.ok().body(boardService.findAllBoardByUserNameAndRole(board_userRoleDTO));
+    }
+
+    @GetMapping("/boards")
+    public ResponseEntity<List<Board>> getAllByToken(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok().body(boardService.findAllBoardByToken(token));
     }
 
     @DeleteMapping("/id={id}")

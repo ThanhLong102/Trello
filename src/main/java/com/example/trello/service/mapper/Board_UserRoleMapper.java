@@ -1,6 +1,7 @@
 package com.example.trello.service.mapper;
 
 import com.example.trello.dto.Board_UserRoleDTO;
+import com.example.trello.model.Board;
 import com.example.trello.model.Board_UserRole;
 import com.example.trello.repositories.BoardRepository;
 import com.example.trello.repositories.RoleRepository;
@@ -63,4 +64,5 @@ public class Board_UserRoleMapper implements EntityMapper<Board_UserRoleDTO, Boa
         return entityList.stream().map(this::toDto).collect(Collectors.toList());
 
     }
+
 }

@@ -14,4 +14,6 @@ public interface Board_UserRoleRepository extends PagingAndSortingRepository<Boa
     Board_UserRole findOneById(Long id);
 
     List<Board_UserRole> findByUserAndRole(User user, Role role);
+
+    List<Board_UserRole> findByUser(User user);
 }
