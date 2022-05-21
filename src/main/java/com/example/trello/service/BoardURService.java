@@ -17,5 +17,5 @@ public interface BoardURService {
 
     void delete(Long id);
 
-    List<BoardVm> findAllBoardByToken(String token);
+    List<Board> findAllBoardByToken(String token);
 }

@@ -3,6 +3,7 @@ package com.example.trello.web.rest;
 import com.example.trello.core.Constants;
 import com.example.trello.dto.BoardDTO;
 import com.example.trello.service.BoardService;
+import com.example.trello.web.vm.BoardVm;
 import io.swagger.annotations.Api;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class BoardController {
     }
 
     @GetMapping("/id={id}")
-    public ResponseEntity<BoardDTO> getById(@PathVariable("id") Long id) {
+    public ResponseEntity<BoardVm> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(boardService.findOne(id));
     }
 

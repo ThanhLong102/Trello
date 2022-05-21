@@ -10,7 +10,6 @@ import com.example.trello.service.BoardURService;
 import com.example.trello.service.ListService;
 import com.example.trello.service.UserService;
 import com.example.trello.service.mapper.Board_UserRoleMapper;
-import com.example.trello.web.vm.BoardVm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -70,15 +69,14 @@ public class BoardURServiceImpl implements BoardURService {
     }
 
     @Override
-    public List<BoardVm> findAllBoardByToken(String token) {
+    public List<Board> findAllBoardByToken(String token) {
         log.debug("Request to get board_ur : {}", token);
         User user = userService.findByToken(token);
         List<Board_UserRole> board_userRoles = board_userRoleRepository.findByUser(user);
-        List<BoardVm> boardVmList = new ArrayList<>();
+        List<Board> boards = new ArrayList<>();
         for (Board_UserRole board_userRole: board_userRoles){
-            List<ListDTO> lists = listService.findAllByBoard(board_userRole.getBoard().getId());
-            boardVmList.add(new BoardVm(board_userRole.getBoard(),lists));
+            boards.add(board_userRole.getBoard());
         }
-        return boardVmList;
+        return boards;
     }
 }
