@@ -1,5 +1,6 @@
 package com.example.trello.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class List implements Serializable {
 
     private String title;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "board_id", referencedColumnName = "id")
     private Board board;

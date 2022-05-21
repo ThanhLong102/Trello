@@ -1,11 +1,13 @@
 package com.example.trello.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -25,4 +27,7 @@ public class Board implements Serializable {
     private String background;
 
     private Boolean star;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private Collection<List> listCollection;
 }
