@@ -36,8 +36,11 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         else {
             userService.updateNewUserAfterOAuthLoginSuccess(user,name);
         }
-//        response.setContentType("text/html");
-//        response.sendRedirect("http://localhost:3000");
+        response.setContentType("text/html");
+        response.sendRedirect("http://localhost:3000");
+//        String targetUrl = determineTargetUrl(request, response, authentication);
+//        clearAuthenticationAttributes(request);
+//        getRedirectStrategy().sendRedirect(request, response, targetUrl);
         super.onAuthenticationSuccess(request, response, authentication);
     }
 
