@@ -1,6 +1,5 @@
 package com.example.trello.dto;
 
-import com.example.trello.model.enumeration.ViewPermission;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +19,5 @@ public class BoardDTO {
     @NotEmpty
     private String background;
 
-    @NotEmpty
-    private ViewPermission viewPermission;
 
 }
