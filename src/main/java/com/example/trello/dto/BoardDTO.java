@@ -20,6 +20,6 @@ public class BoardDTO {
     private String background;
 
     @NotEmpty
-    private Boolean star;
+    private Boolean start;
 
 }
