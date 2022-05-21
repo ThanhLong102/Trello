@@ -3,6 +3,7 @@ package com.example.trello.web.rest;
 import com.example.trello.core.Constants;
 import com.example.trello.dto.CardDTO;
 import com.example.trello.service.CardService;
+import com.example.trello.web.vm.CardVm;
 import io.swagger.annotations.Api;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class CardController {
     }
 
     @GetMapping("/id={id}")
-    public ResponseEntity<CardDTO> getById(@PathVariable("id") Long id) {
+    public ResponseEntity<CardVm> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(cardService.findOne(id));
     }
 

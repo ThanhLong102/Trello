@@ -5,7 +5,9 @@ import com.example.trello.model.Card;
 import com.example.trello.repositories.CardRepository;
 import com.example.trello.repositories.ListRepository;
 import com.example.trello.service.CardService;
+import com.example.trello.service.CommentService;
 import com.example.trello.service.mapper.CardMapper;
+import com.example.trello.web.vm.CardVm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -22,11 +24,14 @@ public class CardServiceImpl implements CardService {
 
     private final ListRepository listRepository;
 
+    private final CommentService commentService;
+
     private final CardMapper cardMapper;
 
-    public CardServiceImpl(CardRepository cardRepository, ListRepository listRepository, CardMapper cardMapper) {
+    public CardServiceImpl(CardRepository cardRepository, ListRepository listRepository, CommentService commentService, CardMapper cardMapper) {
         this.cardRepository = cardRepository;
         this.listRepository = listRepository;
+        this.commentService = commentService;
         this.cardMapper = cardMapper;
     }
 
@@ -41,9 +46,9 @@ public class CardServiceImpl implements CardService {
 
     @Transactional(readOnly = true)
     @Override
-    public CardDTO findOne(Long id) {
+    public CardVm findOne(Long id) {
         log.debug("Request to get card : {}", id);
-        return cardMapper.toDto(cardRepository.findOneById(id));
+        return new CardVm(cardMapper.toDto(cardRepository.findOneById(id)),commentService.findAllByCard(id));
     }
 
     @Override
