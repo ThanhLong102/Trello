@@ -24,4 +24,5 @@ public class Board implements Serializable {
 
     private String background;
 
+    private Boolean star;
 }
