@@ -1,6 +1,5 @@
 package com.example.trello.config;
 
-import com.example.trello.core.Constants;
 import com.example.trello.security.jwt.JWTConfigurer;
 import com.example.trello.security.jwt.TokenProvider;
 import com.example.trello.security.oauth.CustomOAuth2UserService;
@@ -65,7 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers("/", "/login", "/oauth/**").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/**").hasAuthority(Constants.Role.USER)
+                .antMatchers("/api/user/token").permitAll()
+                .antMatchers("/api/**").authenticated()
                 .and()
                 .oauth2Login()
                 .userInfoEndpoint().userService(customOAuth2UserService)
