@@ -24,12 +24,12 @@ public class BoardController {
     }
 
     @PostMapping
-    public ResponseEntity<BoardVm> add(@Valid @RequestBody BoardDTO boardDTO) {
+    public ResponseEntity<BoardDTO> add(@Valid @RequestBody BoardDTO boardDTO) {
         return ResponseEntity.ok().body(boardService.save(boardDTO));
     }
 
     @PutMapping
-    public ResponseEntity<BoardVm> update(@Valid @RequestBody BoardDTO boardDTO) {
+    public ResponseEntity<BoardDTO> update(@Valid @RequestBody BoardDTO boardDTO) {
         return ResponseEntity.ok().body(boardService.save(boardDTO));
     }
 
@@ -39,8 +39,8 @@ public class BoardController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<BoardDTO>> search(@RequestBody BoardDTO boardDTO) {
-        return ResponseEntity.ok().body(boardService.search(boardDTO));
+    public ResponseEntity<List<BoardDTO>> search(@RequestBody BoardDTO boardDTO, @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok().body(boardService.search(boardDTO, token));
     }
 
     @DeleteMapping("/id={id}")

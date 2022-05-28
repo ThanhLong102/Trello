@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface BoardService {
 
-    BoardVm save(BoardDTO boardDTO);
+    BoardDTO save(BoardDTO boardDTO);
 
-    List<BoardDTO> search(BoardDTO boardDTO);
+    List<BoardDTO> search(BoardDTO boardDTO, String token);
 
     @Transactional(readOnly = true)
     BoardVm findOne(Long id);
