@@ -42,11 +42,17 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardDTO save(BoardDTO boardDTO){
+    public BoardVm save(BoardDTO boardDTO){
         log.debug("Request to save board : {}", boardDTO);
         Board board = boardMapper.toEntity(boardDTO);
         board = boardRepository.save(board);
-        return boardMapper.toDto(board);
+        List<ListVm> listVmList = new ArrayList<>();
+        List<ListDTO> lists = listService.findAllByBoard(boardDTO.getId());
+        for (ListDTO listDTO : lists){
+            List<CardDTO> cardDTOS = cardService.findAllByList(listDTO.getId());
+            listVmList.add(new ListVm(listDTO,cardDTOS));
+        }
+        return new BoardVm(board,listVmList);
     }
 
     @Override

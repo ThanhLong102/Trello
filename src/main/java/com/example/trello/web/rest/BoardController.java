@@ -24,12 +24,12 @@ public class BoardController {
     }
 
     @PostMapping
-    public ResponseEntity<BoardDTO> add(@Valid @RequestBody BoardDTO boardDTO) {
+    public ResponseEntity<BoardVm> add(@Valid @RequestBody BoardDTO boardDTO) {
         return ResponseEntity.ok().body(boardService.save(boardDTO));
     }
 
     @PutMapping
-    public ResponseEntity<BoardDTO> update(@Valid @RequestBody BoardDTO boardDTO) {
+    public ResponseEntity<BoardVm> update(@Valid @RequestBody BoardDTO boardDTO) {
         return ResponseEntity.ok().body(boardService.save(boardDTO));
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BoardService {
 
-    BoardDTO save(BoardDTO boardDTO);
+    BoardVm save(BoardDTO boardDTO);
 
     List<BoardDTO> search(BoardDTO boardDTO);
 
