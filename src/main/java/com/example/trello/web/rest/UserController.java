@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = Constants.Api.Path.USER)
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = "*")
 public class UserController {
 
     public final UserService userService;
