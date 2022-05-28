@@ -20,16 +20,25 @@ public class SimpleCORSFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Methods", "POST,PUT, GET, OPTIONS, DELETE");
+        response.setHeader("Access-control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, x-auth-token");
         response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept, X-Requested-With, remember-me");
-
-        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_OK);
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        if (!(request.getMethod().equalsIgnoreCase("OPTIONS"))) {
+            try {
+                chain.doFilter(req, res);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         } else {
-            chain.doFilter(req, res);
+            System.out.println("Pre-flight");
+            response.setHeader("Access-Control-Allowed-Methods", "POST, PUT, GET, DELETE");
+            response.setHeader("Access-Control-Max-Age", "3600");
+            response.setHeader("Access-Control-Allow-Headers", "authorization, content-type,x-auth-token, " +
+                    "access-control-request-headers, access-control-request-method, accept, origin, authorization, x-requested-with");
+
+            response.setStatus(HttpServletResponse.SC_OK);
         }
     }
 }
