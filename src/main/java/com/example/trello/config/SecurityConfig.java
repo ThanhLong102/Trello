@@ -26,10 +26,7 @@ import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 @Import(SecurityProblemSupport.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     private final TokenProvider tokenProvider;
-
-    private final SimpleCORSFilter simpleCORSFilter;
 
     private final CustomOAuth2UserService customOAuth2UserService;
 
@@ -37,15 +34,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
 
-    public SecurityConfig(TokenProvider tokenProvider,
-                          SimpleCORSFilter simpleCORSFilter, CustomOAuth2UserService customOAuth2UserService, OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler, OAuth2LoginFailureHandler oAuth2LoginFailureHandler) {
+    public SecurityConfig(TokenProvider tokenProvider, CustomOAuth2UserService customOAuth2UserService, OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler, OAuth2LoginFailureHandler oAuth2LoginFailureHandler) {
         this.tokenProvider = tokenProvider;
-        this.simpleCORSFilter = simpleCORSFilter;
         this.customOAuth2UserService = customOAuth2UserService;
         this.oAuth2LoginSuccessHandler = oAuth2LoginSuccessHandler;
         this.oAuth2LoginFailureHandler = oAuth2LoginFailureHandler;
     }
 
+    @Bean
+    public CorsFilter corsFilter() {
+        CorsFilter filter = new CorsFilter();
+        return filter;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf()
                 .disable()
-                .addFilterBefore(simpleCORSFilter, SessionManagementFilter.class)
+                .addFilterBefore(corsFilter(), SessionManagementFilter.class)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
