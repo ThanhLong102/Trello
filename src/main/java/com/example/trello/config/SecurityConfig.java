@@ -17,7 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.session.SessionManagementFilter;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 @Configuration
@@ -41,11 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.oAuth2LoginFailureHandler = oAuth2LoginFailureHandler;
     }
 
-    @Bean
-    public CorsFilter corsFilter() {
-        CorsFilter filter = new CorsFilter();
-        return filter;
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -57,7 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf()
                 .disable()
-                .addFilterBefore(corsFilter(), SessionManagementFilter.class)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
