@@ -49,6 +49,13 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.toDto(board);
     }
 
+    @Override
+    public List<BoardDTO> search(BoardDTO boardDTO){
+        log.debug("Request to search board : {}", boardDTO);
+        List<Board> board =boardRepository.findByTitleContainingIgnoreCase(boardDTO.getTitle());
+        return boardMapper.toDto(board);
+    }
+
     @Transactional(readOnly = true)
     @Override
     public BoardVm findOne(Long id) {

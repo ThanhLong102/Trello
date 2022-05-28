@@ -38,6 +38,11 @@ public class BoardController {
         return ResponseEntity.ok().body(boardService.findOne(id));
     }
 
+    @PostMapping("/search")
+    public ResponseEntity<List<BoardDTO>> search(@RequestBody BoardDTO boardDTO) {
+        return ResponseEntity.ok().body(boardService.search(boardDTO));
+    }
+
     @DeleteMapping("/id={id}")
     public void delete(@PathVariable("id") Long id) {
         boardService.delete(id);
