@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BoardService {
 
-    BoardDTO save(BoardDTO boardDTO);
+    BoardDTO save(BoardDTO boardDTO, String token);
 
     List<BoardDTO> search(BoardDTO boardDTO, String token);
 

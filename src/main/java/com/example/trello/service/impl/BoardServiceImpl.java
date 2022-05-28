@@ -1,10 +1,12 @@
 package com.example.trello.service.impl;
 
+import com.example.trello.core.Constants;
 import com.example.trello.dto.BoardDTO;
 import com.example.trello.dto.CardDTO;
 import com.example.trello.dto.ListDTO;
 import com.example.trello.model.Board;
 import com.example.trello.model.Board_UserRole;
+import com.example.trello.model.Role;
 import com.example.trello.model.User;
 import com.example.trello.repositories.BoardRepository;
 import com.example.trello.repositories.Board_UserRoleRepository;
@@ -52,10 +54,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardDTO save(BoardDTO boardDTO) {
+    public BoardDTO save(BoardDTO boardDTO, String token) {
         log.debug("Request to save board : {}", boardDTO);
+        User user = userService.findByToken(token);
         Board board = boardMapper.toEntity(boardDTO);
         board = boardRepository.save(board);
+        board_userRoleRepository.save(new Board_UserRole(board, user , new Role(1L, Constants.Role.ADMIN)));
         return boardMapper.toDto(board);
     }
 

@@ -24,13 +24,13 @@ public class BoardController {
     }
 
     @PostMapping
-    public ResponseEntity<BoardDTO> add(@Valid @RequestBody BoardDTO boardDTO) {
-        return ResponseEntity.ok().body(boardService.save(boardDTO));
+    public ResponseEntity<BoardDTO> add(@Valid @RequestBody BoardDTO boardDTO, @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok().body(boardService.save(boardDTO,token));
     }
 
     @PutMapping
-    public ResponseEntity<BoardDTO> update(@Valid @RequestBody BoardDTO boardDTO) {
-        return ResponseEntity.ok().body(boardService.save(boardDTO));
+    public ResponseEntity<BoardDTO> update(@Valid @RequestBody BoardDTO boardDTO,  @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok().body(boardService.save(boardDTO,token));
     }
 
     @GetMapping("/id={id}")

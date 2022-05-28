@@ -32,4 +32,9 @@ public class Board_UserRole implements Serializable {
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
+    public Board_UserRole(Board board, User user, Role role) {
+        this.board = board;
+        this.user = user;
+        this.role = role;
+    }
 }
