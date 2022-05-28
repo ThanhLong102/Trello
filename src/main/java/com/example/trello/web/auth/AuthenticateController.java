@@ -26,7 +26,7 @@ import java.util.Collections;
 @RestController
 @RequestMapping(value = Constants.Api.Path.AUTH)
 @Api(tags = "Auth")
-@CrossOrigin(origins = "*",allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 public class AuthenticateController {
 
     private final AuthenticateService authenticateService;
