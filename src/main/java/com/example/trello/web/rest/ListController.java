@@ -3,6 +3,7 @@ package com.example.trello.web.rest;
 import com.example.trello.core.Constants;
 import com.example.trello.dto.ListDTO;
 import com.example.trello.service.ListService;
+import com.example.trello.web.vm.ListVm;
 import io.swagger.annotations.Api;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +23,12 @@ public class ListController {
     }
 
     @PostMapping
-    public ResponseEntity<ListDTO> add(@Valid @RequestBody ListDTO listDTO) {
+    public ResponseEntity<ListVm> add(@Valid @RequestBody ListDTO listDTO) {
         return ResponseEntity.ok().body(listService.save(listDTO));
     }
 
     @PutMapping
-    public ResponseEntity<ListDTO> update(@Valid @RequestBody ListDTO listDTO) {
+    public ResponseEntity<ListVm> update(@Valid @RequestBody ListDTO listDTO) {
         return ResponseEntity.ok().body(listService.save(listDTO));
     }
 

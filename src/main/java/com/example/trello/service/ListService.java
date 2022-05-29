@@ -1,12 +1,13 @@
 package com.example.trello.service;
 
 import com.example.trello.dto.ListDTO;
+import com.example.trello.web.vm.ListVm;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface ListService {
-    ListDTO save(ListDTO listDTO);
+    ListVm save(ListDTO listDTO);
 
     @Transactional(readOnly = true)
     ListDTO findOne(Long id);
