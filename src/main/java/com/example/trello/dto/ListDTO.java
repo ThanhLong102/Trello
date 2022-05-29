@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -16,6 +17,6 @@ public class ListDTO {
     @NotEmpty
     private String title;
 
-    @NotEmpty
+    @NotNull
     private Long boardID;
 }
