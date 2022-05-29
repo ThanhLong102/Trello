@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
 @Data
@@ -14,10 +15,10 @@ public class CommentDTO {
 
     private Long id;
 
-    @NotEmpty
+    @NotNull
     private Long userID;
 
-    @NotEmpty
+    @NotNull
     private Long cardID;
 
     private Instant createdDate;
