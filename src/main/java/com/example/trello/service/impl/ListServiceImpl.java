@@ -65,6 +65,6 @@ public class ListServiceImpl implements ListService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete list : {}", id);
-        boardRepository.deleteById(id);
+        listRepository.deleteById(id);
     }
 }
