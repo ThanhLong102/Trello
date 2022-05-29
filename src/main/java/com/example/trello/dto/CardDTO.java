@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -16,11 +15,9 @@ public class CardDTO {
     @NotEmpty
     private String title;
 
-    @NotEmpty
     private String description;
 
-    @NotNull
-    private Long ListId;
+    private Long listID;
 
     private Integer countComment;
 

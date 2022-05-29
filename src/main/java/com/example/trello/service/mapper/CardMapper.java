@@ -30,7 +30,7 @@ public class CardMapper implements EntityMapper<CardDTO, Card>{
 
         Card entity = new Card();
         BeanUtils.copyProperties(dto, entity);
-        entity.setList(listRepository.findOneById(dto.getListId()));
+        entity.setList(listRepository.findOneById(dto.getListID()));
 
         return entity;
     }
@@ -43,7 +43,7 @@ public class CardMapper implements EntityMapper<CardDTO, Card>{
 
         CardDTO dto = new CardDTO();
         BeanUtils.copyProperties(entity, dto);
-        dto.setListId(entity.getList().getId());
+        dto.setListID(entity.getList().getId());
         dto.setCountComment(commentService.countCommentByCard(entity.getId()));
 
         return dto;
