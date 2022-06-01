@@ -7,6 +7,7 @@ import com.example.trello.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -38,6 +39,11 @@ public class UserController {
     @GetMapping(value = "/username={username}")
     public ResponseEntity<User> findUserByUserName(@PathVariable String username) {
         return ResponseEntity.ok().body(userService.findUserByUserName(username));
+    }
+
+    @GetMapping(value = "/search")
+    public ResponseEntity<List<User>> findUserByContainEmail(@PathParam("email") String email) {
+        return ResponseEntity.ok().body(userService.findByEmailContain(email));
     }
 
     @CrossOrigin

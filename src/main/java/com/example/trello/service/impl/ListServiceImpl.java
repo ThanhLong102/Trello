@@ -45,8 +45,7 @@ public class ListServiceImpl implements ListService {
         com.example.trello.model.List list = listMapper.toEntity(listDTO);
         list = listRepository.save(list);
         List<CardDTO> cardDTOList = cardMapper.toDto(cardRepository.findByList(list));
-        ListVm listVm = new ListVm(listMapper.toDto(list),cardDTOList);
-        return listVm;
+        return new ListVm(listMapper.toDto(list),cardDTOList);
     }
 
     @Transactional(readOnly = true)

@@ -55,6 +55,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findByEmailContain(String email){
+        return userRepository.findByEmailContainingIgnoreCase(email);
+    }
+
+    @Override
     public User findByToken(String token) {
         String[] chunks = token.split("\\.");
         Base64.Decoder decoder = Base64.getUrlDecoder();

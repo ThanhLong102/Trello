@@ -28,4 +28,7 @@ public interface UserService {
     void createNewUserAfterOAuthLoginSuccess(String email, String name);
 
     void updateNewUserAfterOAuthLoginSuccess(User user, String name);
+
+    List<User> findByEmailContain(String email);
+
 }
