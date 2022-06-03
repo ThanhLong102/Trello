@@ -39,7 +39,7 @@ public class CommentController {
     }
 
     @GetMapping("/card={id}")
-    public ResponseEntity<List<CommentDTO>> getByBoardId(@PathVariable("id") Long id) {
+    public ResponseEntity<List<CommentDTO>> getByCardId(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(commentService.findAllByCard(id));
     }
 
