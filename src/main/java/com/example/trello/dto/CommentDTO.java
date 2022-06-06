@@ -18,6 +18,8 @@ public class CommentDTO {
     @NotNull
     private Long userID;
 
+    private String nameUser;
+
     @NotNull
     private Long cardID;
 

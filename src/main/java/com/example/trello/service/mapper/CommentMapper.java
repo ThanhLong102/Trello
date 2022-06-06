@@ -45,7 +45,7 @@ public class CommentMapper implements EntityMapper<CommentDTO, Comment>{
         BeanUtils.copyProperties(entity, dto);
         dto.setUserID(entity.getUser().getId());
         dto.setCardID(entity.getCard().getId());
-
+        dto.setNameUser(entity.getUser().getName());
         return dto;
     }
 
