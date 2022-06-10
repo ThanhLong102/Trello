@@ -7,6 +7,8 @@ import com.example.trello.repositories.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +34,10 @@ public class CommentMapper implements EntityMapper<CommentDTO, Comment>{
         BeanUtils.copyProperties(dto, entity);
         entity.setUser(userRepository.findOneById(dto.getUserID()));
         entity.setCard(cardRepository.findOneById(dto.getCardID()));
+        if(entity.getId() == null){
+            entity.setCreatedDate(Instant.now());
+        }
+        entity.setUpdatedDate(Instant.now());
         return entity;
     }
 
